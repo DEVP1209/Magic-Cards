@@ -157,6 +157,7 @@ searchBtn.addEventListener("click", () => {
           console.log(imgUrl);
           this.element = document.createElement("div");
           this.element.setAttribute("class",  text + " child child"+ChildNo);
+          this.element.id = text+"child"+ChildNo;
           this.image = document.createElement("img");
           this.image.src = imgUrl[0];
           this.quantityLabel = document.createElement("label");
@@ -171,7 +172,6 @@ searchBtn.addEventListener("click", () => {
           let CurrDropMenu = this.dropmenu;
           let CurrImg = this.image;
           for(let i=1;i<set_Name.length;i++){
-            console.log("hded")
             let opt = document.createElement("option")
             let img = document.createElement("img")
             img.src = imgUrl[i]
@@ -180,6 +180,20 @@ searchBtn.addEventListener("click", () => {
             opt.innerText = set_Name[i]
             this.dropmenu.appendChild(opt)
           }
+          this.deleteBtn = document.createElement("button");
+          this.deleteBtn.innerHTML = "x";
+          this.deleteBtn.setAttribute("class","btn-danger");
+          
+          this.deleteBtn.addEventListener("click",()=>{
+            document.getElementById(text+"child"+ChildNo).remove();
+            counter[text]--;
+            let CurrDiv = document.getElementById(text);
+            if(counter[text]==0){
+              CurrDiv.innerHTML = ""
+              CurrDiv.remove();
+              counter[text] = 0;
+            }
+          })
           
           this.plusBtn.addEventListener("click", () => {
               this.quantity++;
@@ -198,7 +212,7 @@ searchBtn.addEventListener("click", () => {
 
         })
 
-
+          this.element.appendChild(this.deleteBtn);
           this.element.appendChild(this.image);
           this.element.appendChild(this.quantityLabel);
           this.element.appendChild(this.plusBtn);
