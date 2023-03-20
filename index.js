@@ -74,7 +74,7 @@ let searchBtn = document.getElementById("search-btn");
 let cardContainer = document.getElementById("card-container");
 let clearAllBtn = document.createElement("button");
     clearAllBtn.innerHTML = "Clear All";
-    clearAllBtn.setAttribute("class","clearAllBtn btn btn-light");
+    clearAllBtn.setAttribute("class"," inactive clearAllBtn btn btn-light");
     document.getElementById("clearBTN").appendChild(clearAllBtn);
         
         
@@ -86,9 +86,17 @@ let clearAllBtn = document.createElement("button");
               counter[key] = 0;
             }
           }
+          let temp = document.getElementById("card-container");
+          if(temp.innerHTML==""){
+            clearAllBtn.classList.add("inactive");
+          }
+          else{
+            clearAllBtn.classList.remove("inactive");
+          }
       });
       
 searchBtn.addEventListener("click", () => {
+           clearAllBtn.classList.remove("inactive");
           var value = inputBox.value;
           // let SelectedGroupName = groupDock.options[select.selectedIndex].value;
           searchedCardName = value;
@@ -111,9 +119,8 @@ searchBtn.addEventListener("click", () => {
                     setNameList.push(set_name);
                     ImgList.push(ImgListURL);
                   }               
-                  let imgUrl = ImgList[0];
                   let card = new Card(ImgList,setNameList,text,++counter[text]);
-                  console.log(typeof(card))
+                  
                   let CardwGroupDiv; // create a new Card component
                   if(document.getElementById(text)){
                     // CardwGroupDiv = new AddCard(card,text);
@@ -122,7 +129,7 @@ searchBtn.addEventListener("click", () => {
                   else{
                      CardwGroupDiv = new CreateGroupDiv(card,text);
                     //  cardContainer.innerHTML = ""; // clear any previous card components
-                     cardContainer.appendChild(CardwGroupDiv.groupdiv); // add the new Card component to the card container
+                     cardContainer.appendChild(CardwGroupDiv.mainGroupDiv); // add the new Card component to the card container
               
                   }
                   }
@@ -130,48 +137,58 @@ searchBtn.addEventListener("click", () => {
       });
       class CreateGroupDiv{
         constructor(Card,text) {
+        this.mainGroupDiv = document.createElement("div")
+        this.mainGroupDiv.className = "GroupContainer ";
+        this.mainGroupDiv.id = text+"Container";
+        this.mainGroupDiv.innerHTML = "<h1>"+text+"</h1>";
         this.groupdiv = document.createElement("div");
         this.groupdiv.setAttribute("id", text);
-        let CurrDiv = this.groupdiv;
-        this.groupdiv.innerHTML = "<h1>"+text+"</h1>";
-        this.clearBtn = document.createElement("button");
-        this.clearBtn.innerHTML = "Clear";
-        this.clearBtn.setAttribute("class",text + "clearBtn btn btn-light");
+        this.groupdiv.setAttribute("class","GroupDiv" );
         
-        
-        
-        this.clearBtn.addEventListener("click", () => {
-          CurrDiv.innerHTML = ""
-          CurrDiv.remove();
-          counter[text] = 0;
+       
+      //   this.clearBtn = document.createElement("button");
+      //   this.clearBtn.innerHTML = "Clear";
+      //   this.clearBtn.setAttribute("class",text + "clearBtn btn btn-light");
+      //   this.clearBtn.addEventListener("click", () => {
+      //     CurrDiv.innerHTML = ""
+      //     CurrDiv.remove();
+      //     counter[text] = 0;
 
-      });
+      // });
 
-        this.groupdiv.appendChild(Card.element);
-        this.groupdiv.appendChild(this.clearBtn);
+      this.groupdiv.appendChild(Card.element);
+      this.mainGroupDiv.appendChild(this.groupdiv);
+        // this.groupdiv.appendChild(this.clearBtn);
         }
       }
       class Card {
       constructor(imgUrl,set_Name,text,ChildNo) {
-          this.quantity = 0;
+          this.quantity = 1;
           console.log(imgUrl);
           this.element = document.createElement("div");
           this.element.setAttribute("class",  text + " child child"+ChildNo);
           this.element.id = text+"child"+ChildNo;
           this.image = document.createElement("img");
           this.image.src = imgUrl[0];
+          this.spanElement = document.createElement("span");
+          this.spanElement.className = "spanElement";
           this.quantityLabel = document.createElement("label");
-          this.quantityLabel.innerHTML = "Quantity: " + this.quantity;
+          this.quantityLabel.innerHTML = this.quantity;
           this.plusBtn = document.createElement("button");
           this.plusBtn.innerHTML = "+";
-          this.plusBtn.setAttribute("class","btn-light");
+          this.plusBtn.setAttribute("class","btn btn-sm btn-light");
           this.minusBtn = document.createElement("button");
           this.minusBtn.innerHTML = "-";
-          this.minusBtn.setAttribute("class","btn-light");
+          this.minusBtn.setAttribute("class","btn btn-sm btn-light");
+          this.spanElement.appendChild(this.quantityLabel);
+          this.spanElement.appendChild(this.plusBtn);
+          this.spanElement.appendChild(this.minusBtn);
+
           this.dropmenu = document.createElement("select");
+          this.dropmenu.className = "cardDropmenu"
           let CurrDropMenu = this.dropmenu;
           let CurrImg = this.image;
-          for(let i=1;i<set_Name.length;i++){
+          for(let i=0;i<set_Name.length;i++){
             let opt = document.createElement("option")
             let img = document.createElement("img")
             img.src = imgUrl[i]
@@ -182,12 +199,12 @@ searchBtn.addEventListener("click", () => {
           }
           this.deleteBtn = document.createElement("button");
           this.deleteBtn.innerHTML = "x";
-          this.deleteBtn.setAttribute("class","btn-danger");
+          this.deleteBtn.setAttribute("class","deleteBtn btn btn-sm btn-danger");
           
           this.deleteBtn.addEventListener("click",()=>{
             document.getElementById(text+"child"+ChildNo).remove();
             counter[text]--;
-            let CurrDiv = document.getElementById(text);
+            let CurrDiv = document.getElementById(text+"Container");
             if(counter[text]==0){
               CurrDiv.innerHTML = ""
               CurrDiv.remove();
@@ -197,13 +214,13 @@ searchBtn.addEventListener("click", () => {
           
           this.plusBtn.addEventListener("click", () => {
               this.quantity++;
-              this.quantityLabel.innerHTML = "Quantity: " + this.quantity;
+              this.quantityLabel.innerHTML = this.quantity;
           });
 
           this.minusBtn.addEventListener("click", () => {
-              if (this.quantity > 0) {
+              if (this.quantity > 1) {
                   this.quantity--;
-                  this.quantityLabel.innerHTML = "Quantity: " + this.quantity;
+                  this.quantityLabel.innerHTML = this.quantity;
               }
           });
           CurrDropMenu.addEventListener("change", function() {
@@ -214,9 +231,11 @@ searchBtn.addEventListener("click", () => {
 
           this.element.appendChild(this.deleteBtn);
           this.element.appendChild(this.image);
-          this.element.appendChild(this.quantityLabel);
-          this.element.appendChild(this.plusBtn);
-          this.element.appendChild(this.minusBtn);
           this.element.appendChild(this.dropmenu);
+          this.element.appendChild(this.spanElement)
+          // this.element.appendChild(this.quantityLabel);
+          // this.element.appendChild(this.plusBtn);
+          // this.element.appendChild(this.minusBtn);
+          
           }
       }
