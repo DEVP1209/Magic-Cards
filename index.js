@@ -208,6 +208,7 @@ searchBtn.addEventListener("click", () => {
             if(counter[text]==0){
               CurrDiv.innerHTML = ""
               CurrDiv.remove();
+              clearAllBtn.classList.add("inactive");
               counter[text] = 0;
             }
           })
