@@ -6,15 +6,15 @@ let linkTag = searchWrapper.querySelector("a");
 let webLink;
 var counter = {
   DefaultGroup: 0,
-  group1: 0,
-  group2: 0,
-  group3: 0,
-  group4: 0,
-  group5: 0,
-  group6: 0,
-  group7: 0,
-  group8: 0,
-  group9: 0
+  Group1: 0,
+  Group2: 0,
+  Group3: 0,
+  Group4: 0,
+  Group5: 0,
+  Group6: 0,
+  Group7: 0,
+  Group8: 0,
+  Group9: 0
 }; 
 // if user press any key and release
 inputBox.onkeyup = (e) => {
@@ -120,7 +120,6 @@ searchBtn.addEventListener("click", () => {
                     ImgList.push(ImgListURL);
                   }               
                   let card = new Card(ImgList,setNameList,text,++counter[text]);
-                  
                   let CardwGroupDiv; // create a new Card component
                   if(document.getElementById(text)){
                     // CardwGroupDiv = new AddCard(card,text);
