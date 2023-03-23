@@ -19,6 +19,7 @@ var counter = {
 // if user press any key and release
 inputBox.onkeyup = (e) => {
   let userData = e.target.value; //user enetered data
+  userData = userData.toLocaleLowerCase();
   let emptyArray = [];
   if (userData) {
     // icon.onclick = ()=>{
@@ -30,7 +31,7 @@ inputBox.onkeyup = (e) => {
       //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
       return data
         .toLocaleLowerCase()
-        .startsWith(userData.toLocaleLowerCase());
+        .startsWith(userData);
     });
     emptyArray = emptyArray.map((data) => {
       // passing return data inside li tag
@@ -96,7 +97,7 @@ let clearAllBtn = document.createElement("button");
       });
       
 searchBtn.addEventListener("click", () => {
-           clearAllBtn.classList.remove("inactive");
+          clearAllBtn.classList.remove("inactive");
           var value = inputBox.value;
           // let SelectedGroupName = groupDock.options[select.selectedIndex].value;
           searchedCardName = value;
@@ -110,14 +111,18 @@ searchBtn.addEventListener("click", () => {
           fetch("https://api.scryfall.com/cards/search?q=\""+searchedCardName+"\"+unique:prints+include%3Aextras")
           .then((res)=> (res.json()))
           .then((res)=>{
-              if (res.data.length>0){
+              if (res.data.length>0 ){
                   let setNameList = []
                   let ImgList = []
                   for (let i = 0; i < res.data.length; i++) {
+                    let res_Name = (res.data[i].name).toLocaleLowerCase();
+                    let Searched_Set_Name = searchedCardName.toLocaleLowerCase(); 
+                    if(res_Name ==Searched_Set_Name ){
                     let set_name = res.data[i].set_name;
                     let ImgListURL = res.data[i].image_uris.small;
                     setNameList.push(set_name);
                     ImgList.push(ImgListURL);
+                    }
                   }               
                   let card = new Card(ImgList,setNameList,text,++counter[text]);
                   let CardwGroupDiv; // create a new Card component
