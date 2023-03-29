@@ -2,7 +2,8 @@
 const searchWrapper = document.querySelector(".search-input");
 const inputBox = searchWrapper.querySelector("input");
 const suggBox = searchWrapper.querySelector(".autocom-box");
-let linkTag = searchWrapper.querySelector("a");
+const linkTag = searchWrapper.querySelector("a");
+const searchBtn = document.getElementById("search-btn");
 let webLink;
 var counter = {
   DefaultGroup: 0,
@@ -71,7 +72,7 @@ function showSuggestions(list) {
   suggBox.innerHTML = listData;
 }
 
-let searchBtn = document.getElementById("search-btn");
+
 let cardContainer = document.getElementById("card-container");
 let clearAllBtn = document.createElement("button");
     clearAllBtn.innerHTML = "Clear All";
@@ -119,12 +120,12 @@ searchBtn.addEventListener("click", () => {
                     let Searched_Set_Name = searchedCardName.toLocaleLowerCase(); 
                     if(res_Name ==Searched_Set_Name ){
                     let set_name = res.data[i].set_name;
-                    let ImgListURL = res.data[i].image_uris.small;
+                    let ImgListURL = res.data[i].image_uris.normal;
                     setNameList.push(set_name);
                     ImgList.push(ImgListURL);
                     }
                   }               
-                  let card = new Card(ImgList,setNameList,text,++counter[text]);
+                  let card = new Card(searchedCardName,ImgList,setNameList,text,++counter[text]);
                   let CardwGroupDiv; // create a new Card component
                   if(document.getElementById(text)){
                     // CardwGroupDiv = new AddCard(card,text);
@@ -144,7 +145,15 @@ searchBtn.addEventListener("click", () => {
         this.mainGroupDiv = document.createElement("div")
         this.mainGroupDiv.className = "GroupContainer ";
         this.mainGroupDiv.id = text+"Container";
-        this.mainGroupDiv.innerHTML = "<h1>"+text+"</h1>";
+        let GroupContainerTitle;
+        if(text == "DefaultGroup"){
+          GroupContainerTitle = "Default Group"
+        }
+        else{
+          GroupContainerTitle = text.substring(0,5) + " " + text.substring(5,6)
+        }
+        this.mainGroupDiv.innerHTML = "<h1 class = \"GroupHeading\">"+GroupContainerTitle+"</h1>";
+        
         this.groupdiv = document.createElement("div");
         this.groupdiv.setAttribute("id", text);
         this.groupdiv.setAttribute("class","GroupDiv" );
@@ -166,12 +175,17 @@ searchBtn.addEventListener("click", () => {
         }
       }
       class Card {
-      constructor(imgUrl,set_Name,text,ChildNo) {
+      constructor(searchedCardName,imgUrl,set_Name,text,ChildNo) {
           this.quantity = 1;
           console.log(imgUrl);
           this.element = document.createElement("div");
           this.element.setAttribute("class",  text + " child child"+ChildNo);
           this.element.id = text+"child"+ChildNo;
+          this.title = document.createElement("span");
+          this.title.setAttribute("class",  "card_title_span");
+          this.heading = document.createElement("h5");
+          this.heading.className = "cardHeading";
+          this.heading.innerHTML = searchedCardName;
           this.image = document.createElement("img");
           this.image.src = imgUrl[0];
           this.spanElement = document.createElement("span");
@@ -234,7 +248,10 @@ searchBtn.addEventListener("click", () => {
 
         })
 
-          this.element.appendChild(this.deleteBtn);
+          this.title.appendChild(this.heading);
+          this.title.appendChild(this.deleteBtn);
+          this.element.appendChild(this.title); 
+          // this.element.appendChild(this.deleteBtn);
           this.element.appendChild(this.image);
           this.element.appendChild(this.dropmenu);
           this.element.appendChild(this.spanElement)

@@ -16,16 +16,16 @@ body {
 }
 
 .wrapper {
-  max-width: 50%;
+  max-width: 70%;
   margin: 150px auto;
 }
 
 .wrapper .search-input {
   background: #fff;
-  width: 100%;
+  width: 60%;
   border-radius: 5px;
   position: relative;
-  margin: 10px;
+  margin: 10px auto;
   box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
 }
 select#groups {
@@ -35,6 +35,7 @@ select#groups {
 .search-input input {
   height: 55px;
   width: 100%;
+  margin-left: auto ;
   outline: none;
   border: none;
   border-radius: 5px;
@@ -102,22 +103,31 @@ select#groups {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
     padding: 16px;
     text-align: center;
-    background-color: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
-    
+    background-color: #efe4d7;
+    border-radius: 7px;
+}
+.child>img{
+  border-radius: 10px;
+  margin-top: 5px;
+  width: 250px;
 }
 
 .card-container{
     right: 50%;
 }
-.btn-danger {
-  position: relative;
-  left: 80px;
-  bottom: -30px;
+ .btn-danger {
+  position: relative; 
+  right: -14px;
+  top: -4px; 
   /* z-index: -1; */
+  height:30px;
+} 
+.card_title_span {
+  width: 100%;
 }
   .spanElement{
     padding:10px;
@@ -127,7 +137,9 @@ select#groups {
   }
   .cardDropmenu{
     margin: 10px;
-
+    background-color: #F9EBC8;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
   .btn{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
@@ -148,16 +160,23 @@ label{
   justify-content: space-around;
   grid-template-columns: repeat(3,1fr);
   gap: 30px;
+  padding: 20px;
+  padding-top: 10px;
 }
 span#ButtonSpan {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 10px;
   margin-right: -15px;
 }
+
 .GroupContainer{
   text-align: center;
   width: 100%;
+  background-color: #DFD3C3;
+  border-radius: 10px;
+  margin-top: 25px;
+  padding-top:10px;
 }
 .inactive{
   visibility: hidden;
@@ -170,4 +189,26 @@ select {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+select#groups {
+  margin: 10px auto;
+  width: 60%;
+}
+.cardHeading{
+    font-size: 1.25rem;
+    position: relative;
+    margin: auto;
+    left: 8%;
+}
+.card_title_span{
+  display: inline-flex;
+  width: 100%;
+}
+h1.GroupHeading {
+  background-color: #D0B8A8;
+  border-radius: 10px;
+  margin: 10px;
+  margin-top: 0;
+  font-size: x-large;
+  padding: 10px;
 }
