@@ -266,6 +266,7 @@ h1.GroupHeading {
 .BackCardHeading{
   left: 0;
   color: #ffeadb;
+  font-weight: 400;
 }
 .step3-lft-cell2 {
   -ms-flex: 0 0 32%;
