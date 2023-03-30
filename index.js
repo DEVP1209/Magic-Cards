@@ -225,18 +225,18 @@ searchBtn.addEventListener("click", () => {
           this.deleteBtn.setAttribute("class","deleteBtn btn btn-sm btn-danger");
           
           this.deleteBtn.addEventListener("click",()=>{
-            console.log("INSIDE")
             counter[text]--;
-            console.log("CardsCount:"+cardsCount + " Quantity"+ this.quantity);
             cardsCount = cardsCount - this.quantity;
             document.getElementById(text+"child"+ChildNo).remove();
             updateCount();
             let CurrDiv = document.getElementById(text+"Container");
-            if(cardsCount == 0){
+            if(counter[text] == 0){
               CurrDiv.innerHTML = ""
               CurrDiv.remove();
-              clearAllBtn.classList.add("inactive");
               counter[text] = 0;
+            }
+            if(cardsCount == 0){
+              clearAllBtn.classList.add("inactive");
             }
           })
           

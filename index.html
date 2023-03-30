@@ -18,8 +18,9 @@
      
     </style>
   </head>
-  <body>
+  <body class="CardPageBody">
     <div class="wrapper">
+      <div><span class="Step3Span"><span class="Step3InnerSpan"><h3>STEP 1</h3><h3 style="font-family: 'Alkatra', cursive;">Add Cards</h3></span></div>
       <div class="search-input">
         <a href="" target="_blank" hidden></a>
         <input type="text" placeholder="Type to search.." />
@@ -28,6 +29,7 @@
         </div>
         <div class="icon"><i class="fas fa-search"></i></div>
       </div>
+      <span class="GroupAndSearch">
     <div class="form-floating" id="groupDropDown">
       <select class="form-select groupselection" name="Groups" id="groups" aria-label="Floating label select example">
         <option value="DefaultGroup" selected>Default Group</option>
@@ -41,7 +43,8 @@
         <option value="Group9">Group 9</option>
       </select>
     </div>
-    <span id = "ButtonSpan"><button type="button" class=" btn btn-primary ButtonAtMiddle" id="search-btn">Add Card</button></span>
+    <span id = "ButtonSpan"><button type="button" class=" btn btn-dark ButtonAtMiddle" id="search-btn">Add Card</button></span>
+  </span>
     <div class="main-container">
     <span class="Step2Span"><span class="Step2InnerSpan"><h3>STEP 2</h3><h3 style="font-family: 'Alkatra', cursive;">Adjust Order</h3></span><span id="clearBTN"></span></span>
     <div id="card-container">

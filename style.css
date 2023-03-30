@@ -7,8 +7,9 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
+.CardPageBody {
   padding: 0 20px;
+  background-color: #F2CEA4;
 }
 
 ::selection {
@@ -19,6 +20,11 @@ body {
 .wrapper {
   max-width: 70%;
   margin: 150px auto;
+  background-color:#DFD3C3;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    
 }
 
 .wrapper .search-input {
@@ -42,6 +48,8 @@ select#groups {
   border-radius: 5px;
   padding: 0 60px 0 20px;
   font-size: 18px;
+  background-color:#474139;
+  color: #fff;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -96,6 +104,7 @@ select#groups {
   height: auto;
   max-height: 280px;
   overflow-x: hidden;
+  
 }
 
 .child
@@ -118,7 +127,7 @@ select#groups {
 }
 .main-container {
   background-color: #DFD3C3;
-  padding: 16px;
+  padding: 16px 0;
   border-radius: 10px;
 }
 .card-container{
@@ -197,8 +206,20 @@ select {
   text-overflow: ellipsis;
 }
 select#groups {
+  /* margin: 10px auto;
+  width: 60%; */
   margin: 10px auto;
-  width: 60%;
+    width: 175px;
+    text-align: center;
+    padding: 0;
+    height: 40px;
+    background-color: #474139;
+    color: #fff;
+}
+.GroupAndSearch{
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
 }
 .cardHeading{
     font-size: 1.25rem;
