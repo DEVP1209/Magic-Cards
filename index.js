@@ -4,6 +4,7 @@ const inputBox = searchWrapper.querySelector("input");
 const suggBox = searchWrapper.querySelector(".autocom-box");
 const linkTag = searchWrapper.querySelector("a");
 const searchBtn = document.getElementById("search-btn");
+let cardsCount = 0;
 let webLink;
 var counter = {
   DefaultGroup: 0,
@@ -76,21 +77,22 @@ function showSuggestions(list) {
 let cardContainer = document.getElementById("card-container");
 let clearAllBtn = document.createElement("button");
     clearAllBtn.innerHTML = "Clear All";
-    clearAllBtn.setAttribute("class"," inactive clearAllBtn btn btn-light");
+    clearAllBtn.setAttribute("class"," inactive clearAllBtn btn btn-danger");
     document.getElementById("clearBTN").appendChild(clearAllBtn);
         
         
     clearAllBtn.addEventListener("click", () => {
           cardContainer.innerHTML = ""
-       
+          cardsCount = 0;
+          updateCount();
           for (var key in counter) {
             if (counter.hasOwnProperty(key)) {
               counter[key] = 0;
             }
           }
-          let temp = document.getElementById("card-container");
-          if(temp.innerHTML==""){
+          if(cardContainer.innerHTML==""){
             clearAllBtn.classList.add("inactive");
+            cardsCount = 0;
           }
           else{
             clearAllBtn.classList.remove("inactive");
@@ -113,6 +115,9 @@ searchBtn.addEventListener("click", () => {
           .then((res)=> (res.json()))
           .then((res)=>{
               if (res.data.length>0 ){
+                  cardsCount++;
+                  console.log(cardsCount);
+                  updateCount();
                   let setNameList = []
                   let ImgList = []
                   for (let i = 0; i < res.data.length; i++) {
@@ -120,7 +125,7 @@ searchBtn.addEventListener("click", () => {
                     let Searched_Set_Name = searchedCardName.toLocaleLowerCase(); 
                     if(res_Name ==Searched_Set_Name ){
                     let set_name = res.data[i].set_name;
-                    let ImgListURL = res.data[i].image_uris.normal;
+                    let ImgListURL = res.data[i].image_uris.large;
                     setNameList.push(set_name);
                     ImgList.push(ImgListURL);
                     }
@@ -220,10 +225,14 @@ searchBtn.addEventListener("click", () => {
           this.deleteBtn.setAttribute("class","deleteBtn btn btn-sm btn-danger");
           
           this.deleteBtn.addEventListener("click",()=>{
-            document.getElementById(text+"child"+ChildNo).remove();
+            console.log("INSIDE")
             counter[text]--;
+            console.log("CardsCount:"+cardsCount + " Quantity"+ this.quantity);
+            cardsCount = cardsCount - this.quantity;
+            document.getElementById(text+"child"+ChildNo).remove();
+            updateCount();
             let CurrDiv = document.getElementById(text+"Container");
-            if(counter[text]==0){
+            if(cardsCount == 0){
               CurrDiv.innerHTML = ""
               CurrDiv.remove();
               clearAllBtn.classList.add("inactive");
@@ -233,12 +242,18 @@ searchBtn.addEventListener("click", () => {
           
           this.plusBtn.addEventListener("click", () => {
               this.quantity++;
+              cardsCount++;
+              updateCount();
+              console.log(cardsCount);
               this.quantityLabel.innerHTML = this.quantity;
           });
 
           this.minusBtn.addEventListener("click", () => {
               if (this.quantity > 1) {
                   this.quantity--;
+                  cardsCount--;
+                  updateCount();
+                  console.log(cardsCount);
                   this.quantityLabel.innerHTML = this.quantity;
               }
           });
@@ -261,3 +276,57 @@ searchBtn.addEventListener("click", () => {
           
           }
       }
+function updateCount(){
+  let OrderQuantity = document.getElementById("OrderQuantity");
+  OrderQuantity.innerHTML = cardsCount;
+  updatePrice();
+  updateActivePrice();
+}
+function updatePrice(){
+  let OrderPrice = document.getElementById("orderPrice");
+  let totalPrice;
+  if (cardsCount <= 9){
+    totalPrice = cardsCount*2;
+  }
+  else if(cardsCount > 9 && cardsCount <= 49){ 
+    totalPrice = cardsCount * 1.5;
+  }
+  else if(cardsCount > 49 && cardsCount <= 199){
+    totalPrice = cardsCount * 1;
+  }
+  else{
+    totalPrice = cardsCount * 0.75;
+  }
+  
+  OrderPrice.innerHTML = "$" + (totalPrice); 
+}
+function updateActivePrice(){
+  let Oneto9 =  document.getElementById("1to9");
+  let Tento49 = document.getElementById("10to49");
+  let Fiftyto199 = document.getElementById("50to199");
+  let Two00 = document.getElementById("200to");
+  if (cardsCount <= 9){
+    Oneto9.className += " ToGolden";
+    Tento49.classList.remove("ToGolden");
+    Fiftyto199.classList.remove("ToGolden");
+    Two00.classList.remove("ToGolden");
+  }
+  else if(cardsCount > 9 && cardsCount <= 49){ 
+    Tento49.className += " ToGolden";
+    Oneto9.classList.remove("ToGolden");
+    Fiftyto199.classList.remove("ToGolden");
+    Two00.classList.remove("ToGolden");
+  }
+  else if(cardsCount > 49 && cardsCount <= 199){
+    Fiftyto199.className += " ToGolden";
+    Oneto9.classList.remove("ToGolden");
+    Tento49.classList.remove("ToGolden");
+    Two00.classList.remove("ToGolden");
+  }
+  else{
+    Two00.className += " ToGolden";
+    Oneto9.classList.remove("ToGolden");
+    Tento49.classList.remove("ToGolden");
+    Fiftyto199.classList.remove("ToGolden");
+  }
+}

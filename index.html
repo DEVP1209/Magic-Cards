@@ -41,14 +41,70 @@
         <option value="Group9">Group 9</option>
       </select>
     </div>
-    <span id = "ButtonSpan"><button type="button" class=" btn btn-primary ButtonAtMiddle" id="search-btn">Add Card</button><span id="clearBTN"></span></span>
-      
-      
-      <div id="card-container">
-        
+    <span id = "ButtonSpan"><button type="button" class=" btn btn-primary ButtonAtMiddle" id="search-btn">Add Card</button></span>
+    <div class="main-container">
+    <span class="Step2Span"><span class="Step2InnerSpan"><h3>STEP 2</h3><h3 style="font-family: 'Alkatra', cursive;">Adjust Order</h3></span><span id="clearBTN"></span></span>
+    <div id="card-container">
+    </div>
+    <div><span class="Step3Span"><span class="Step3InnerSpan"><h3>STEP 3</h3><h3 style="font-family: 'Alkatra', cursive;">Review Order</h3></span></div>
+    <div class="BackContainer " id="BackCardCover">
+      <div id="" class="BackDiv">
+        <div class="child step3-lft-cell2" id="BackCardCover1">
+        <span class="card_title_span"><h5 class=" cardHeading BackCardHeading">Select Card's Back</h5>
+        <!-- <button class="deleteBtn btn btn-sm btn-danger">x</button> -->
+      </span><img src="MagicForge back.png">
+      <select class="cardDropmenu"><option >Magic Forge Back</option></select>
+    </div>
+    <div class="step3-mid cstm-row" style="height:100%;">
+      <div class="card-pricing">
+        <h3>CARD PRICING</h3>
       </div>
-      
+      <div class= "pricing-box">
+        <ul style="padding:10px 40px 5px 10px;">
+          <li>
+            <div class="price-li-div">
+              <div class="card-price-btn">
+                <a href="#" class="1to9" id="1to9">1-9 Cards</a>
+              </div>
+              <span class="price-spn">$2</span>
+            </div>
+          </li>
+          <li>
+            <div class="price-li-div">
+              <div class="card-price-btn">
+                <a href="#"  id="10to49">10-49 Cards</a>
+              </div>
+              <span class="price-spn">$1.5</span>
+            </div>
+          </li>
+          <li>
+            <div class="price-li-div">
+              <div class="card-price-btn">
+                <a href="#"  id="50to199">50-199 Cards</a>
+              </div>
+              <span class="price-spn">$1</span>
+            </div>
+          </li>
+          <li>
+            <div class="price-li-div">
+              <div class="card-price-btn">
+                <a href="#"  id="200to">200+ Cards</a>
+              </div>
+              <span class="price-spn">$0.75</span>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class = "step3-rgt cstm-row" style = "height:100%;">
+      <p>Your Order Will consist of <span class="order-quantity" id="OrderQuantity">0</span> Cards for a total of <span class="order-price" id="orderPrice">$0</span> .</p></div>
+    </div>
+    </div>
+  </div>
+
     <script src="suggestions.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
+

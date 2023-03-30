@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@500&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -115,11 +116,15 @@ select#groups {
   margin-top: 5px;
   width: 250px;
 }
-
+.main-container {
+  background-color: #DFD3C3;
+  padding: 16px;
+  border-radius: 10px;
+}
 .card-container{
     right: 50%;
 }
- .btn-danger {
+ .deleteBtn {
   position: relative; 
   right: -14px;
   top: -4px; 
@@ -140,6 +145,7 @@ select#groups {
     background-color: #F9EBC8;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    font-size: 1rem;
   }
   .btn{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
@@ -198,7 +204,7 @@ select#groups {
     font-size: 1.25rem;
     position: relative;
     margin: auto;
-    left: 8%;
+    left: 6%;
 }
 .card_title_span{
   display: inline-flex;
@@ -207,8 +213,167 @@ select#groups {
 h1.GroupHeading {
   background-color: #D0B8A8;
   border-radius: 10px;
-  margin: 10px;
+  margin-bottom: 10px;
   margin-top: 0;
   font-size: x-large;
   padding: 10px;
+}
+.Step2Span{
+  background-color: #D0B8A8;
+  border-radius: 10px;
+  font-size: x-large;
+  padding: 10px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+.Step2InnerSpan{
+  display: inline-flex;
+  justify-content: space-between;
+  width: 300px;
+}
+.Step3Span{
+  background-color: #D0B8A8;
+  border-radius: 10px;
+  font-size: x-large;
+  padding: 10px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.Step3InnerSpan{
+  display: inline-flex;
+  justify-content: space-between;
+  width: 305px;
+}
+.BackContainer{
+  text-align: center;
+  width: 100%;
+  background-color: #DFD3C3;
+  border-radius: 10px;
+  margin-top: -5px;
+  padding-top:10px;
+}
+.BackDiv{
+  display: flex;
+  justify-content: space-between;
+  gap: 19px;
+  padding: 20px;
+  padding-top: 10px;
+  padding-right: 81px;
+}
+.BackCardHeading{
+  left: 0;
+  color: #ffeadb;
+}
+.step3-lft-cell2 {
+  -ms-flex: 0 0 32%;
+  flex: 0 0 32%;
+  max-width: 32%;
+  margin-top: 28px;
+  background-color: #656464;
+}
+.step3-mid {
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 30%;
+  background-color: #656464;
+  border-radius: 8px;
+  padding: 15px 10px 10px;
+  margin-top: 28px;
+}
+.cstm-row {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+}
+.card-pricing {
+  color: #0000;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.pricing-box {
+  border-radius: 8px;
+  background-color: #656464;
+  padding: 0;
+}
+.pricing-box ul li > 
+div {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.price-li-div {
+  min-inline-size: max-content !important;
+}
+.pricing-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.pricing-box ul li{
+  margin-bottom: 5px;
+}
+.card-price-btn {
+  display: inline-block;
+  vertical-align: top;
+}
+.pricing-box a {
+  pointer-events: none;
+  text-decoration: none;
+}
+.card-price-btn a{
+  background-color: #afafaf;
+  border-radius: 6px;
+  height: 23px;
+  width: 96px;
+  text-align: left;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  color: #404040;
+  display: block;
+  padding: 4px 5px 5px 5px;
+  box-shadow: 1px 1px 1px 1px rgba(64,64,64,.6);
+  min-inline-size: max-content;
+  min-inline-size: max-content;
+}
+
+.price-spn {
+  display: inline-block;
+  vertical-align: top;
+  color: #ffeadb;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.step3-rgt {
+  -ms-flex: 0 0 46%;
+  flex: 0 0 46%;
+  max-width: 46%;
+  background-color: #656464;
+  border-radius: 8px;
+  padding: 15px 10px 10px;
+  margin-top: 28px;
+}
+.step3-rgt p {
+  text-align: left;
+  color: #ffeadb;
+  font-size: 23px;
+  line-height: 26px;
+  margin: 0;
+  width: 100%;
+}
+span.order-quantity,span.order-price {
+  color: #e79e3f;
+  font-weight: bold;
+}
+.ToGolden{
+  background-color: #e79e3f !important;
 }
