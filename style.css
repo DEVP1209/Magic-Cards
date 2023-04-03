@@ -123,7 +123,7 @@ select#groups {
 .child>img{
   border-radius: 10px;
   margin-top: 5px;
-  width: 250px;
+  width: 100%;
 }
 .main-container {
   background-color: #DFD3C3;
@@ -190,7 +190,7 @@ span#ButtonSpan {
   width: 100%;
   background-color: #DFD3C3;
   border-radius: 10px;
-  margin-top: 25px;
+  margin-top: 5px;
   padding-top:10px;
 }
 .inactive{
@@ -397,4 +397,61 @@ span.order-quantity,span.order-price {
 }
 .ToGolden{
   background-color: #e79e3f !important;
+}
+@media screen and (max-width: 1024px) {
+  
+  .GroupDiv{
+    grid-template-columns: repeat(2,1fr);
+  }
+  .BackDiv{
+    flex-direction: column;
+    gap:0;
+    align-items: center;
+    justify-content: center;
+    padding-right: 20px;
+  }
+  .step3-lft-cell2{
+    flex: 0 0 100%;
+    max-width: 82%;
+  }
+  .step3-mid{
+    flex: 0 0 100%;
+    max-width: 82%;
+  }
+  .card-pricing h3 {
+    transform: rotate(315deg);
+}
+.step3-rgt{
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.step3-rgt p {
+  font-size: 2.5vh;
+  line-height: 4vh;
+}
+}
+@media screen and (max-width: 766px){
+  .wrapper{
+    max-width: 100%;
+  }
+  .GroupDiv{
+    grid-template-columns: repeat(1,1fr);
+  }
+  .BackDiv{
+    padding: 0;
+  }
+  .search-input input{
+    font-size: 1.5vh;
+  }
+.card-pricing h3 {
+  transform: rotate(0);
+}
+.Step2InnerSpan {
+  width: 100%;
+  font-size: 15px;
+  justify-content: flex-start;
+}
+.Step2InnerSpan h3 {
+  margin-left: 10px;
+}
 }

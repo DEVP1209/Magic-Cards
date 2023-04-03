@@ -76,7 +76,7 @@ function showSuggestions(list) {
 
 let cardContainer = document.getElementById("card-container");
 let clearAllBtn = document.createElement("button");
-    clearAllBtn.innerHTML = "Clear All";
+    clearAllBtn.innerHTML = "Clear";
     clearAllBtn.setAttribute("class"," inactive clearAllBtn btn btn-danger");
     document.getElementById("clearBTN").appendChild(clearAllBtn);
         
