@@ -8,6 +8,7 @@
 }
 
 .CardPageBody {
+  padding: 0 20px;
   background-color: #F2CEA4;
 }
 
@@ -465,8 +466,4 @@ span.order-quantity,span.order-price {
   margin-left: 10px;
 } */
 }
-<<<<<<< HEAD:style.css
 
-=======
-}
->>>>>>> ce60b22d0a18d73bba42e26935469b9e566bdc5e:style_final.css
