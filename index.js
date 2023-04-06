@@ -5,6 +5,32 @@ const suggBox = searchWrapper.querySelector(".autocom-box");
 const linkTag = searchWrapper.querySelector("a");
 const searchBtn = document.getElementById("search-btn");
 let cardsCount = 0;
+var Cards = [
+  {
+    Group: "DefaultGroup",
+    cards:{}
+  },
+  {
+    Group: "Group1",
+    cards:{}},
+  {
+    Group: "Group2",
+    cards:{}},
+  {Group: "Group3",
+  cards:{}},
+  {Group: "Group4",
+  cards:{}},
+  {Group: "Group5",
+  cards:{}},
+  {Group: "Group6",
+  cards:{}},
+  {Group: "Group7",
+  cards:{}},
+  {Group: "Group8",
+  cards:{}},
+  {Group: "Group9",
+  cards:{}}
+  ]
 let webLink;
 var counter = {
   DefaultGroup: 0,
@@ -18,6 +44,8 @@ var counter = {
   Group8: 0,
   Group9: 0
 }; 
+
+
 // if user press any key and release
 inputBox.onkeyup = (e) => {
   let userData = e.target.value; //user enetered data
@@ -116,21 +144,24 @@ searchBtn.addEventListener("click", () => {
           .then((res)=>{
               if (res.data.length>0 ){
                   cardsCount++;
-                  console.log(cardsCount);
                   updateCount();
                   let setNameList = []
                   let ImgList = []
                   for (let i = 0; i < res.data.length; i++) {
                     let res_Name = (res.data[i].name).toLocaleLowerCase();
                     let Searched_Set_Name = searchedCardName.toLocaleLowerCase(); 
-                    if(res_Name ==Searched_Set_Name ){
+                    if(res_Name ==Searched_Set_Name){
                     let set_name = res.data[i].set_name;
                     let ImgListURL = res.data[i].image_uris.large;
                     setNameList.push(set_name);
                     ImgList.push(ImgListURL);
                     }
-                  }               
-                  let card = new Card(searchedCardName,ImgList,setNameList,text,++counter[text]);
+                  }   
+                  console.log(Cards[0].cards)
+                  let GroupIndx = getGroupIndex(text)
+                  let ObjName = searchedCardName+"_"+setNameList[0]  
+                  addCardJSON(GroupIndx,ObjName,1);    
+                  let card = new Card(GroupIndx,searchedCardName,ImgList,setNameList,text,++counter[text],ObjName);
                   let CardwGroupDiv; // create a new Card component
                   if(document.getElementById(text)){
                     // CardwGroupDiv = new AddCard(card,text);
@@ -180,9 +211,9 @@ searchBtn.addEventListener("click", () => {
         }
       }
       class Card {
-      constructor(searchedCardName,imgUrl,set_Name,text,ChildNo) {
+      constructor(GroupIndx,searchedCardName,imgUrl,set_Name,text,ChildNo,ObjName) {
+          
           this.quantity = 1;
-          console.log(imgUrl);
           this.element = document.createElement("div");
           this.element.setAttribute("class",  text + " child child"+ChildNo);
           this.element.id = text+"child"+ChildNo;
@@ -238,13 +269,16 @@ searchBtn.addEventListener("click", () => {
             if(cardsCount == 0){
               clearAllBtn.classList.add("inactive");
             }
+            delete Cards[GroupIndx].cards[ObjName];
+            console.log(Cards[0].cards)
           })
           
           this.plusBtn.addEventListener("click", () => {
               this.quantity++;
               cardsCount++;
+              Cards[GroupIndx].cards[ObjName].Quantity = this.quantity;
               updateCount();
-              console.log(cardsCount);
+              console.log(Cards[0].cards)
               this.quantityLabel.innerHTML = this.quantity;
           });
 
@@ -252,17 +286,21 @@ searchBtn.addEventListener("click", () => {
               if (this.quantity > 1) {
                   this.quantity--;
                   cardsCount--;
+                  console.log(Cards[0].cards)
+                  Cards[GroupIndx].cards[ObjName].Quantity = this.quantity;
                   updateCount();
-                  console.log(cardsCount);
                   this.quantityLabel.innerHTML = this.quantity;
               }
           });
           CurrDropMenu.addEventListener("change", function() {
-           let index = set_Name.indexOf(CurrDropMenu.options[CurrDropMenu.selectedIndex].text)
+            let Selected_option = CurrDropMenu.options[CurrDropMenu.selectedIndex].text
+           let index = set_Name.indexOf(Selected_option)
            CurrImg.src = imgUrl[index];
+           addCardJSON(GroupIndx,searchedCardName+"_"+Selected_option,Cards[GroupIndx].cards[ObjName].Quantity);
+           delete Cards[GroupIndx].cards[ObjName];
+           ObjName = searchedCardName+"_"+Selected_option;
 
         })
-
           this.title.appendChild(this.heading);
           this.title.appendChild(this.deleteBtn);
           this.element.appendChild(this.title); 
@@ -299,6 +337,26 @@ function updatePrice(){
   }
   
   OrderPrice.innerHTML = "$" + (totalPrice); 
+}
+function getGroupIndex(text){
+  let temp_index = text.substring(5,6)
+  if(parseInt(temp_index)){
+    return (parseInt(temp_index))
+  }
+  else{
+    return 0;
+  }
+}
+function addCardJSON(index,ObjName,Quantity){
+  // var temp = {
+  //   id : CardID,
+  //   "CardName" : CardName,
+  //   "Set" : SetName,
+  //   "Quantity" : Quantity
+  // }
+  Cards[index].cards[ObjName] = {
+    "Quantity" : Quantity
+  }
 }
 function updateActivePrice(){
   let Oneto9 =  document.getElementById("1to9");

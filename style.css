@@ -239,6 +239,11 @@ h1.GroupHeading {
   font-size: x-large;
   padding: 10px;
 }
+.Step1InnerSpan{
+  display: inline-flex;
+  justify-content: space-between;
+  width: 280px;
+}
 .Step2Span{
   background-color: #D0B8A8;
   border-radius: 10px;
@@ -266,7 +271,7 @@ h1.GroupHeading {
 .Step3InnerSpan{
   display: inline-flex;
   justify-content: space-between;
-  width: 305px;
+  width: 300px;
 }
 .BackContainer{
   text-align: center;
@@ -398,6 +403,10 @@ span.order-quantity,span.order-price {
 .ToGolden{
   background-color: #e79e3f !important;
 }
+.ProceedBtn{
+  align-items: center;
+  width: 100%;
+}
 @media screen and (max-width: 1024px) {
   
   .GroupDiv{
@@ -441,17 +450,20 @@ span.order-quantity,span.order-price {
     padding: 0;
   }
   .search-input input{
-    font-size: 1.5vh;
+    font-size: 4vh;
   }
 .card-pricing h3 {
   transform: rotate(0);
 }
+.Step1InnerSpan{
+  width: 270px;
+}
 .Step2InnerSpan {
-  width: 100%;
-  font-size: 15px;
-  justify-content: flex-start;
+  width: 294px;
+  justify-content: space-between;
 }
-.Step2InnerSpan h3 {
+/* .Step2InnerSpan h3 {
   margin-left: 10px;
+} */
 }
-}
+
