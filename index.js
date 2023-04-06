@@ -4,6 +4,8 @@ const inputBox = searchWrapper.querySelector("input");
 const suggBox = searchWrapper.querySelector(".autocom-box");
 const linkTag = searchWrapper.querySelector("a");
 const searchBtn = document.getElementById("search-btn");
+let ProceedBTN = document.getElementById("priceBTN")
+
 let cardsCount = 0;
 var Cards = [
   {
@@ -120,15 +122,19 @@ let clearAllBtn = document.createElement("button");
           }
           if(cardContainer.innerHTML==""){
             clearAllBtn.classList.add("inactive");
+            ProceedBTN.classList.add("inactive");
             cardsCount = 0;
           }
           else{
             clearAllBtn.classList.remove("inactive");
+            ProceedBTN.classList.remove("inactive");
           }
       });
       
 searchBtn.addEventListener("click", () => {
           clearAllBtn.classList.remove("inactive");
+          ProceedBTN.classList.remove("inactive");
+
           var value = inputBox.value;
           // let SelectedGroupName = groupDock.options[select.selectedIndex].value;
           searchedCardName = value;
@@ -268,6 +274,7 @@ searchBtn.addEventListener("click", () => {
             }
             if(cardsCount == 0){
               clearAllBtn.classList.add("inactive");
+              ProceedBTN.classList.add("inactive");
             }
             delete Cards[GroupIndx].cards[ObjName];
             console.log(Cards[0].cards)
@@ -388,3 +395,21 @@ function updateActivePrice(){
     Fiftyto199.classList.remove("ToGolden");
   }
 }
+
+
+// ProceedBTN.addEventListener("click",() => {})
+// function onCheckout() {
+//   fetch("http://localhost:4242/create-checkout-session", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       /* any data you need to send to the server */
+//       Cards
+//     }),
+//   })
+//     .then((response) => response.text())
+//     .then((url) => (window.location.href = url))
+//     .catch((error) => console.error(error));
+// }
