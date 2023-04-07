@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@500&display=swap");
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
 
 .CardPageBody {
-  padding: 0 20px;
   background-color: #F2CEA4;
 }
 
