@@ -20,6 +20,7 @@
 .wrapper {
   max-width: 70%;
   margin: 150px auto;
+  margin-bottom: 10px;
   background-color:#DFD3C3;
   padding: 16px;
   border-radius: 10px;
@@ -404,8 +405,13 @@ span.order-quantity,span.order-price {
   background-color: #e79e3f !important;
 }
 .ProceedBtn{
-  align-items: center;
+  display: flex;
+  justify-content: center;
   width: 100%;
+  margin-bottom: 170px;
+}
+.ProceedBtn button {
+  padding: 10px 20px;
 }
 @media screen and (max-width: 1024px) {
   

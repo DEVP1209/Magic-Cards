@@ -5,7 +5,7 @@ const suggBox = searchWrapper.querySelector(".autocom-box");
 const linkTag = searchWrapper.querySelector("a");
 const searchBtn = document.getElementById("search-btn");
 let ProceedBTN = document.getElementById("priceBTN")
-
+let ObjectIndx = 0
 let cardsCount = 0;
 var Cards = [
   {
@@ -165,9 +165,9 @@ searchBtn.addEventListener("click", () => {
                   }   
                   console.log(Cards[0].cards)
                   let GroupIndx = getGroupIndex(text)
-                  let ObjName = searchedCardName+"_"+setNameList[0]  
+                  let ObjName = ObjectIndx+"_"+searchedCardName+"_"+setNameList[0]  
                   addCardJSON(GroupIndx,ObjName,1);    
-                  let card = new Card(GroupIndx,searchedCardName,ImgList,setNameList,text,++counter[text],ObjName);
+                  let card = new Card(GroupIndx,ObjectIndx++,searchedCardName,ImgList,setNameList,text,++counter[text],ObjName);
                   let CardwGroupDiv; // create a new Card component
                   if(document.getElementById(text)){
                     // CardwGroupDiv = new AddCard(card,text);
@@ -217,8 +217,8 @@ searchBtn.addEventListener("click", () => {
         }
       }
       class Card {
-      constructor(GroupIndx,searchedCardName,imgUrl,set_Name,text,ChildNo,ObjName) {
-          
+      constructor(GroupIndx,ObjectIndx,searchedCardName,imgUrl,set_Name,text,ChildNo,ObjName) {
+          this.ObjectIndx = ObjectIndx
           this.quantity = 1;
           this.element = document.createElement("div");
           this.element.setAttribute("class",  text + " child child"+ChildNo);
@@ -303,9 +303,9 @@ searchBtn.addEventListener("click", () => {
             let Selected_option = CurrDropMenu.options[CurrDropMenu.selectedIndex].text
            let index = set_Name.indexOf(Selected_option)
            CurrImg.src = imgUrl[index];
-           addCardJSON(GroupIndx,searchedCardName+"_"+Selected_option,Cards[GroupIndx].cards[ObjName].Quantity);
+           addCardJSON(GroupIndx,ObjectIndx+"_"+searchedCardName+"_"+Selected_option,Cards[GroupIndx].cards[ObjName].Quantity);
            delete Cards[GroupIndx].cards[ObjName];
-           ObjName = searchedCardName+"_"+Selected_option;
+           ObjName = ObjectIndx+"_"+searchedCardName+"_"+Selected_option;
 
         })
           this.title.appendChild(this.heading);
