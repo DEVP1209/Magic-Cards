@@ -405,7 +405,19 @@ function updateActivePrice(){
 }
 
 
-// ProceedBTN.addEventListener("click",() => {})
+ProceedBTN.addEventListener("click",() => {
+  console.log(Cards);
+  fetch("https://stripe-service-magic-forge.onrender.com/create-checkout-session", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({cards : Cards}),
+  })
+    .then((response) => response.text())
+    .then((url) => (window.location.href = url))
+    .catch((error) => console.error(error));
+})
 // function onCheckout() {
 //   fetch("http://localhost:4242/create-checkout-session", {
 //     method: "POST",
@@ -413,7 +425,6 @@ function updateActivePrice(){
 //       "Content-Type": "application/json",
 //     },
 //     body: JSON.stringify({
-//       /* any data you need to send to the server */
 //       Cards
 //     }),
 //   })
