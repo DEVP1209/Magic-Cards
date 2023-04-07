@@ -31,7 +31,10 @@ var Cards = [
   {Group: "Group8",
   cards:{}},
   {Group: "Group9",
-  cards:{}}
+  cards:{}},
+  {
+    Group:"BackCard"
+  }
   ]
 let webLink;
 var counter = {
@@ -129,6 +132,10 @@ let clearAllBtn = document.createElement("button");
             clearAllBtn.classList.remove("inactive");
             ProceedBTN.classList.remove("inactive");
           }
+          ObjectIndx = 0;
+          for (let i = 0; i < 10; i++) {
+            Cards[i].cards = {}
+          }
       });
       
 searchBtn.addEventListener("click", () => {
@@ -166,11 +173,13 @@ searchBtn.addEventListener("click", () => {
                   console.log(Cards[0].cards)
                   let GroupIndx = getGroupIndex(text)
                   let ObjName = ObjectIndx+"_"+searchedCardName+"_"+setNameList[0]  
-                  addCardJSON(GroupIndx,ObjName,1);    
+                  let BackDropdown = document.getElementById("BackDropdown");
+                  let BackCard = BackDropdown.options[BackDropdown.selectedIndex].text
+                  Cards[10].Back = BackCard
+                  addCardJSON(GroupIndx,ObjName,1);   
                   let card = new Card(GroupIndx,ObjectIndx++,searchedCardName,ImgList,setNameList,text,++counter[text],ObjName);
                   let CardwGroupDiv; // create a new Card component
                   if(document.getElementById(text)){
-                    // CardwGroupDiv = new AddCard(card,text);
                     CardwGroupDiv = document.getElementById(text).appendChild(card.element);
                   }
                   else{
@@ -182,6 +191,7 @@ searchBtn.addEventListener("click", () => {
                   }
           })
       });
+
       class CreateGroupDiv{
         constructor(Card,text) {
         this.mainGroupDiv = document.createElement("div")
@@ -321,6 +331,10 @@ searchBtn.addEventListener("click", () => {
           
           }
       }
+BackDropdown.addEventListener("change",()=>{
+  BackCard = BackDropdown.options[BackDropdown.selectedIndex].text
+  Cards[10].Back = BackCard
+})
 function updateCount(){
   let OrderQuantity = document.getElementById("OrderQuantity");
   OrderQuantity.innerHTML = cardsCount;
@@ -355,12 +369,6 @@ function getGroupIndex(text){
   }
 }
 function addCardJSON(index,ObjName,Quantity){
-  // var temp = {
-  //   id : CardID,
-  //   "CardName" : CardName,
-  //   "Set" : SetName,
-  //   "Quantity" : Quantity
-  // }
   Cards[index].cards[ObjName] = {
     "Quantity" : Quantity
   }
