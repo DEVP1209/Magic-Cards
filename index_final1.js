@@ -149,7 +149,7 @@ searchBtn.addEventListener("click", () => {
           TextArea.value = ""
           var value = [];
           var CardName = [];
-          console.log("SplittedCard: "+Splitted_Cards)
+          console.log(Splitted_Cards)
           Promise.all(Splitted_Cards.map((card, i) => {
             return new Promise((resolve, reject) => {
               value.push("");
@@ -460,11 +460,18 @@ ProceedBTN.addEventListener("click",() => {
 
 function findSetName(Searched_Set_Name){
   Searched_Set_Name = Searched_Set_Name.split(" ").join("").toLocaleLowerCase()
+  console.log("Searced: "+Searched_Set_Name)
+  let keywords;
+  if(Searched_Set_Name.substring(0,1) == 'a'){
+    keywords = Searched_Set_Name.substring(0,1)
+  }else{
+  keywords = Searched_Set_Name.substring(0,2)
+  }
   emptyArray = suggestions.filter((data) => {
     //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
     return data
       .toLocaleLowerCase()
-      .startsWith(Searched_Set_Name.substring(0,2));
+      .startsWith(keywords);
   });
   // console.log(emptyArray);
   var ans = ""
