@@ -99,7 +99,19 @@ select#groups {
   color: #644bff;
   cursor: pointer;
 }
-
+.Card_textarea_div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Card_textarea{
+  height: 22vh;
+  width: 30vw;
+  background-color: #474139;
+  color: white;
+  font-size: unset;
+  border-radius: 5px;
+}
 .dropdown-menu-cs {
   height: auto;
   max-height: 280px;

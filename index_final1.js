@@ -4,7 +4,8 @@ const inputBox = searchWrapper.querySelector("input");
 const suggBox = searchWrapper.querySelector(".autocom-box");
 const linkTag = searchWrapper.querySelector("a");
 const searchBtn = document.getElementById("search-btn");
-let ProceedBTN = document.getElementById("priceBTN")
+let ProceedBTN = document.getElementById("priceBTN");
+let TextArea = document.getElementById("Card_textarea");
 let ObjectIndx = 0
 let cardsCount = 0;
 var Cards = [
@@ -68,6 +69,7 @@ inputBox.onkeyup = (e) => {
         .toLocaleLowerCase()
         .startsWith(userData);
     });
+    // console.log(emptyArray);
     emptyArray = emptyArray.map((data) => {
       // passing return data inside li tag
       return (data = `<li>${data}</li>`);
@@ -86,7 +88,9 @@ inputBox.onkeyup = (e) => {
 
 function select(element) {
   let selectData = element.textContent;
-  inputBox.value = selectData;
+  inputBox.value = "";
+  if(TextArea.value == ""){TextArea.value += (selectData)}
+  else{TextArea.value += ("\n"+selectData)}
   // icon.onclick = ()=>{
   //     webLink = `https://www.google.com/search?q=${selectData}`;
   //     linkTag.setAttribute("href", webLink);
@@ -141,55 +145,90 @@ let clearAllBtn = document.createElement("button");
 searchBtn.addEventListener("click", () => {
           clearAllBtn.classList.remove("inactive");
           ProceedBTN.classList.remove("inactive");
-
-          var value = inputBox.value;
-          // let SelectedGroupName = groupDock.options[select.selectedIndex].value;
-          searchedCardName = value;
-          var e = document.getElementById("groups");
-          var text = e.options[e.selectedIndex].value;
-          // console.log(searchedCardName);
-                    // if (!document.querySelector("#"+SelectedGroupName)) {
-                    //     let grpdiv = new GroupDiv(SelectedGroupName);
-                    //     cardContainer.appendChild(grpdiv.element);
-                    //   }
-          fetch("https://api.scryfall.com/cards/search?q=\""+searchedCardName+"\"+unique:prints+include%3Aextras")
-          .then((res)=> (res.json()))
-          .then((res)=>{
+          var Splitted_Cards = (TextArea.value).split('\n');
+          TextArea.value = ""
+          var value = [];
+          var CardName = [];
+          console.log("SplittedCard: "+Splitted_Cards)
+          Promise.all(Splitted_Cards.map((card, i) => {
+            return new Promise((resolve, reject) => {
+              value.push("");
+              var qty = null;
+              if(+ card[0]){
+                var tempstr = card.split(' ');
+                qty = tempstr[0];
+                value[i] = tempstr[1]
+                for(let j = 2 ;j < tempstr.length;j++){
+                  value[i] += " " + tempstr[j];
+                }
+              }
+              else{
+                value[i] = card;
+              }
+              // console.log(value);
+              searchedCardName = value[i];
+              searchedCardName = findSetName(searchedCardName.toLocaleLowerCase());
+              CardName.push(searchedCardName);
+              console.log(CardName);
+              fetch(`https://api.scryfall.com/cards/search?q="${searchedCardName}"&unique:prints+include%3Aextras`)
+                .then((res)=> (res.json()))
+                .then((res)=>{
+                  resolve({res, CardName,i,qty});
+                })
+                .catch((err) => {
+                  reject(err);
+                  
+                });
+                
+            });
+          }))
+          .then((responses) => {
+            responses.forEach((response) => {
+              const res = response.res;
+              let searchedCardName = response.CardName[response.i];
+              var qty = response.qty;
               if (res.data.length>0 ){
-                  cardsCount++;
-                  updateCount();
-                  let setNameList = []
-                  let ImgList = []
-                  for (let i = 0; i < res.data.length; i++) {
-                    let res_Name = (res.data[i].name).toLocaleLowerCase();
-                    let Searched_Set_Name = searchedCardName.toLocaleLowerCase(); 
-                    if(res_Name ==Searched_Set_Name){
-                    let set_name = res.data[i].set_name;
-                    let ImgListURL = res.data[i].image_uris.large;
+                cardsCount++;
+                updateCount();
+                let setNameList = []
+                let ImgList = []
+                for (let k = 0; k < res.data.length; k++) {
+                  let res_Name = (res.data[k].name).toLocaleLowerCase();
+                  let res_Name2 = (res.data[k].name).split(" ").join("").toLocaleLowerCase();
+                  let Searched_Set_Name = searchedCardName.toLocaleLowerCase(); 
+                  if(res_Name == Searched_Set_Name || res_Name2 == Searched_Set_Name){
+                    let set_name = res.data[k].set_name;
+                    let ImgListURL = res.data[k].image_uris.large;
                     setNameList.push(set_name);
                     ImgList.push(ImgListURL);
-                    }
-                  }   
-                  console.log(Cards[0].cards)
-                  let GroupIndx = getGroupIndex(text)
-                  let ObjName = ObjectIndx+"_"+searchedCardName+"_"+setNameList[0]  
-                  let BackDropdown = document.getElementById("BackDropdown");
-                  let BackCard = BackDropdown.options[BackDropdown.selectedIndex].text
-                  Cards[10].Back = BackCard
-                  addCardJSON(GroupIndx,ObjName,1);   
-                  let card = new Card(GroupIndx,ObjectIndx++,searchedCardName,ImgList,setNameList,text,++counter[text],ObjName);
-                  let CardwGroupDiv; // create a new Card component
-                  if(document.getElementById(text)){
-                    CardwGroupDiv = document.getElementById(text).appendChild(card.element);
                   }
-                  else{
-                     CardwGroupDiv = new CreateGroupDiv(card,text);
-                    //  cardContainer.innerHTML = ""; // clear any previous card components
-                     cardContainer.appendChild(CardwGroupDiv.mainGroupDiv); // add the new Card component to the card container
-              
-                  }
-                  }
+                }
+                // console.log(Cards[0].cards)
+                var e = document.getElementById("groups");
+                var text = e.options[e.selectedIndex].value;
+                let GroupIndx = getGroupIndex(text)
+                let ObjName = ObjectIndx+"_"+searchedCardName+"_"+setNameList[0]  
+                let BackDropdown = document.getElementById("BackDropdown");
+                let BackCard = BackDropdown.options[BackDropdown.selectedIndex].text
+                Cards[10].Back = BackCard
+                addCardJSON(GroupIndx,ObjName,1);   
+                let card = new Card(GroupIndx,ObjectIndx++,searchedCardName,ImgList,setNameList,text,++counter[text],ObjName,qty);
+                let CardwGroupDiv; // create a new Card component
+                if(document.getElementById(text)){
+                  CardwGroupDiv = document.getElementById(text).appendChild(card.element);
+                }
+                else{
+                   CardwGroupDiv = new CreateGroupDiv(card,text);
+                  //  cardContainer.innerHTML = ""; // clear any previous card components
+                   cardContainer.appendChild(CardwGroupDiv.mainGroupDiv); // add the new Card component to the card container
+                }
+              }
+            });
           })
+          .catch((err) => {
+            console.error(err);
+          });
+          
       });
 
       class CreateGroupDiv{
@@ -227,9 +266,9 @@ searchBtn.addEventListener("click", () => {
         }
       }
       class Card {
-      constructor(GroupIndx,ObjectIndx,searchedCardName,imgUrl,set_Name,text,ChildNo,ObjName) {
+      constructor(GroupIndx,ObjectIndx,searchedCardName,imgUrl,set_Name,text,ChildNo,ObjName,qty) {
           this.ObjectIndx = ObjectIndx
-          this.quantity = 1;
+          this.quantity = qty != null ? parseInt(qty):1;
           this.element = document.createElement("div");
           this.element.setAttribute("class",  text + " child child"+ChildNo);
           this.element.id = text+"child"+ChildNo;
@@ -418,17 +457,23 @@ ProceedBTN.addEventListener("click",() => {
     .then((url) => (window.location.href = url))
     .catch((error) => console.error(error));
 })
-// function onCheckout() {
-//   fetch("http://localhost:4242/create-checkout-session", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       Cards
-//     }),
-//   })
-//     .then((response) => response.text())
-//     .then((url) => (window.location.href = url))
-//     .catch((error) => console.error(error));
-// }
+
+function findSetName(Searched_Set_Name){
+  Searched_Set_Name = Searched_Set_Name.split(" ").join("").toLocaleLowerCase()
+  emptyArray = suggestions.filter((data) => {
+    //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+    return data
+      .toLocaleLowerCase()
+      .startsWith(Searched_Set_Name.substring(0,2));
+  });
+  // console.log(emptyArray);
+  var ans = ""
+  emptyArray.forEach((data)=>{
+    // console.log(data.split(" ").join("").toLocaleLowerCase());
+     if( data.split(" ").join("").toLocaleLowerCase() == Searched_Set_Name || data.toLocaleLowerCase == Searched_Set_Name){
+       ans = data;
+     };
+  });
+  console.log(ans);
+  return ans;
+}
