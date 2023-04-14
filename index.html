@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Magic</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DEVP1209/Magic-Cards@ef30eac3e7ac35d6d740b3c8e3bcded72ab4d29d/style_final3.css" />
+    <link rel="stylesheet" href="style_final3.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -23,18 +23,28 @@
     <div class = "MainDiv">
     <div class="wrapper">
       <div><span class="Step3Span"><span class="Step1InnerSpan"><h3>STEP 1</h3><h3 style="font-family: 'Alkatra', cursive;">Add Cards</h3></span></div>
-      <div class="search-input">
-        <a href="" target="_blank" hidden></a>
-        <input type="text" placeholder="Type to search.." />
-        <div class="autocom-box">
-          <!-- here list are inserted from javascript -->
-        </div>
-        <div class="icon"><i class="fas fa-search" style="color: #d1d1d1;"></i></div>
-      </div>
+      <div style="text-align: center; padding:0 20px; margin-right:22px; font-weight: bold;">or</div>
       <div class="Card_textarea_div">
+        <div class="cell-1">
+          <div class="search-input">
+            <a href="" target="_blank" hidden></a>
+            <input type="text" placeholder="Type to search.." />
+            <div class="autocom-box">
+              <!-- here list are inserted from javascript -->
+            </div>
+            <div class="icon"><i class="fas fa-search" style="color: #d1d1d1;"></i></div>
+          </div>
       <textarea class="Card_textarea" id="Card_textarea" placeholder="Enter your search here in this format 
   3 ponder 
   5 plains"></textarea>
+      </div>
+    <div class="cell-2">
+      <h3>UPLOAD YOUR CARDS</h3>
+      <p class="sub-txt" style = "text-align: center;">Upload your own cards to be printed.</p> 
+      <div class="ins-box">
+      <h4>For best results, follow these recommendations :</h4> 
+      <ul><li>Recommended resolution of 300 DPI +</li> <li>Card size : 63mm by 88mm (2.5" by 3.5")</li> <i>Image type: JPG or PNG only</li> <i>Keep important information clear from the edge</li></ul> </div>
+      <input id="Upload_Button" type="file" title = " "></input></div>
     </div>
       <span class="GroupAndSearch">
     <div class="form-floating" id="groupDropDown">
@@ -116,7 +126,7 @@
 <div class="ProceedBtn"><span id = "PriceBTN"><button type="button" class=" btn btn-dark inactive" id="priceBTN">Proceed</button></span></div>
 </div>
   <script src="https://cdn.jsdelivr.net/gh/DEVP1209/Magic-Cards@main/suggestions_final1.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/DEVP1209/Magic-Cards@c0b44711e954b00c9df21d3118a5d94e4b4a48b4/index_final1.jss"></script>
+  <script src="https://cdn.jsdelivr.net/gh/DEVP1209/Magic-Cards@c0b44711e954b00c9df21d3118a5d94e4b4a48b4/index_final1.js"></script>
     
   </body>
 </html>

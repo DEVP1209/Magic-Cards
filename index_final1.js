@@ -442,7 +442,26 @@ function updateActivePrice(){
     Fiftyto199.classList.remove("ToGolden");
   }
 }
+let Custom = document.getElementById("Upload_Button");
+Custom.addEventListener('change', function(event) {
+  const file = event.target.files[0];
 
+  if (!file.type.startsWith('image/')) {
+    console.log('File is not an image.');
+    return;
+  }
+
+  const reader = new FileReader();
+  let ImageSource ;
+  reader.onload = function(event) {
+    const image = new Image();
+    image.src = event.target.result;
+    ImageSource = image.src;
+  };
+
+  reader.readAsDataURL(file);
+  
+});
 
 ProceedBTN.addEventListener("click",() => {
   console.log(Cards);

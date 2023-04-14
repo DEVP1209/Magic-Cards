@@ -29,7 +29,7 @@
 
 .wrapper .search-input {
   background: #fff;
-  width: 60%;
+  width: 90%;
   border-radius: 12px;
   position: relative;
   margin: 10px auto;
@@ -99,19 +99,7 @@ select#groups {
   color: #644bff;
   cursor: pointer;
 }
-.Card_textarea_div{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Card_textarea{
-  height: 22vh;
-  width: 30vw;
-  background-color: #474139;
-  color: white;
-  font-size: unset;
-  border-radius: 5px;
-}
+
 .dropdown-menu-cs {
   height: auto;
   max-height: 280px;
@@ -424,6 +412,50 @@ span.order-quantity,span.order-price {
 .ProceedBtn button {
   padding: 10px 20px;
 }
+.Card_textarea_div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Card_textarea{
+  height: 20vh;
+  width: 30vw;
+  background-color: #474139;
+  color: white;
+  font-size: unset;
+  border-radius: 5px;
+}
+
+.cell-1{
+  border-right: 20px;
+  padding: 21px;
+}
+.cell-2{
+  border-left: 1px solid;
+  padding: 22px;
+}
+.cell-2 h3 {
+  text-align: center;
+}
+.cell-2 ul {
+  list-style: none;
+}
+.cell-2 h4 {
+  text-align: center;
+  color: grey;
+}
+.ins-box {
+  background-color: antiquewhite;
+  padding: 5px;
+  border-radius: 9px;
+ }
+ #Upload_Button{
+  padding: 4px;
+  color: #DFD3C3;
+ }
+/* .Upload_Button{
+  background-color:red;
+} */
 @media screen and (max-width: 1024px) {
   
   .GroupDiv{
