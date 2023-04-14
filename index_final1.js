@@ -188,8 +188,6 @@ searchBtn.addEventListener("click", () => {
               let searchedCardName = response.CardName[response.i];
               var qty = response.qty;
               if (res.data.length>0 ){
-                cardsCount++;
-                updateCount();
                 let setNameList = []
                 let ImgList = []
                 for (let k = 0; k < res.data.length; k++) {
@@ -203,6 +201,9 @@ searchBtn.addEventListener("click", () => {
                     ImgList.push(ImgListURL);
                   }
                 }
+                cardsCount += (qty != null ? parseInt(qty):1);
+                console.log("CardsCount: "+cardsCount);
+                updateCount();
                 // console.log(Cards[0].cards)
                 var e = document.getElementById("groups");
                 var text = e.options[e.selectedIndex].value;
@@ -374,8 +375,8 @@ BackDropdown.addEventListener("change",()=>{
   BackCard = BackDropdown.options[BackDropdown.selectedIndex].text
   Cards[10].Back = BackCard
 })
+let OrderQuantity = document.getElementById("OrderQuantity");
 function updateCount(){
-  let OrderQuantity = document.getElementById("OrderQuantity");
   OrderQuantity.innerHTML = cardsCount;
   updatePrice();
   updateActivePrice();
@@ -460,7 +461,7 @@ Custom.addEventListener('change', function(event) {
   };
 
   reader.readAsDataURL(file);
-  
+
 });
 
 ProceedBTN.addEventListener("click",() => {
