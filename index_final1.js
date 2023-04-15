@@ -351,6 +351,9 @@ class Card {
         clearAllBtn.classList.add("inactive");
         ProceedBTN.classList.add("inactive");
       }
+      if(searchedCardName == "Custom Card"){
+        var temp = CustomCards.filter((card) =>{return (card.name != ObjName)});}
+        CustomCards = temp;
       delete Cards[GroupIndx].cards[ObjName];
       // console.log(Cards[0].cards);
     });
@@ -493,6 +496,7 @@ ProceedBTN.addEventListener("click", (e) => {
     //---------------Name in Card JSON passed in stride is Index_CustomCard_ImageName_Modified
     //So Split By _ and Match ImageName and lastmodified
     CustomCards.forEach((file)=>{
+      // console.log(file)
       var formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', "pbxrp4sf");
@@ -558,9 +562,11 @@ uploadButton.addEventListener("change", (e) => {
   var eg = document.getElementById("groups");
   var text = eg.options[eg.selectedIndex].value;
   let GroupIndx = getGroupIndex(text);
+  ObjName =ObjectIndx + "_" +"CustomCard_"+e.target.files[0].lastModified+"_"+e.target.files[0].name;
   var file = e.target.files[0];
-  CustomCards.push(file);
-  ObjName =ObjectIndx + "_" +"CustomCard_" + e.target.files[0].name+"_"+e.target.files[0].lastModified;
+  CustomCards.push(new File([file], ObjName, {
+    type: file.type,
+  }));
   console.log(ObjName);
   var imageSrc;
   imageSrc = URL.createObjectURL(e.target.files[0]);
@@ -591,21 +597,3 @@ uploadButton.addEventListener("change", (e) => {
   updateCount();
   // console.log(Cards);
 });
-// uploadButton.addEventListener('click', uploadImage);
-// function uploadImage() {
-//   var fileInput = document.getElementById('fileInput');
-//   var file = fileInput.files[0];
-//   var formData = new FormData();
-//   formData.append('file', file);
-//   formData.append('upload_preset', 'YOUR_UPLOAD_PRESET');
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', 'https://api.cloudinary.com/v1_1/drq0llwyb/image/upload');
-//   xhr.onload = function() {
-//     if (xhr.status === 200) {
-//       console.log(xhr.responseText);
-//     } else {
-//       console.error(xhr.responseText);
-//     }
-//   };
-//   xhr.send(formData);
-// }
