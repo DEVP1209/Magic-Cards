@@ -120,6 +120,7 @@ clearAllBtn.addEventListener("click", () => {
   cardContainer.innerHTML = "";
   cardsCount = 0;
   updateCount();
+  CustomCards = [];
   for (var key in counter) {
     if (counter.hasOwnProperty(key)) {
       counter[key] = 0;
@@ -562,7 +563,8 @@ uploadButton.addEventListener("change", (e) => {
   var eg = document.getElementById("groups");
   var text = eg.options[eg.selectedIndex].value;
   let GroupIndx = getGroupIndex(text);
-  ObjName =ObjectIndx + "_" +"CustomCard_"+e.target.files[0].lastModified+"_"+e.target.files[0].name;
+  let random = Math.random()*1000;
+  ObjName =ObjectIndx + "_" +"CustomCard_"+random+"_"+e.target.files[0].lastModified+"_"+e.target.files[0].name;
   var file = e.target.files[0];
   CustomCards.push(new File([file], ObjName, {
     type: file.type,
