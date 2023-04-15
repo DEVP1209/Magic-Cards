@@ -1,4 +1,8 @@
 // getting all required elements
+// import * as cloudinary from './node_modules/cloudinary-core/cloudinary-core.js'; 
+// var cl = new Cloudinary({cloud_name: "demo", secure: true});
+
+
 const searchWrapper = document.querySelector(".search-input");
 const inputBox = searchWrapper.querySelector("input");
 const suggBox = searchWrapper.querySelector(".autocom-box");
@@ -8,6 +12,7 @@ let ProceedBTN = document.getElementById("priceBTN");
 let TextArea = document.getElementById("Card_textarea");
 let ObjectIndx = 0;
 let cardsCount = 0;
+var CustomCards = [];
 var Cards = [
   {
     Group: "DefaultGroup",
@@ -482,7 +487,28 @@ Custom.addEventListener("change", function (event) {
 });
 
 ProceedBTN.addEventListener("click", (e) => {
-  
+    // e.preventDefault(); // prevent the form from submitting normally
+
+    // var file = uploadButton.files[0];
+    //---------------Name in Card JSON passed in stride is Index_CustomCard_ImageName_Modified
+    //So Split By _ and Match ImageName and lastmodified
+    CustomCards.forEach((file)=>{
+      var formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', "pbxrp4sf");
+    axios ({
+      url: 'https://api.cloudinary.com/v1_1/drq0llwyb/image/upload', 
+      method: "POST",
+      headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+      }, data: formData
+      }) 
+      .then(function (res) {
+      console.log(res);
+      }).catch(function(err) {
+      console.error(err);
+      });
+    })
   fetch(
     "https://stripe-service-magic-forge.onrender.com/create-checkout-session",
     {
@@ -491,15 +517,13 @@ ProceedBTN.addEventListener("click", (e) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ cards: Cards ,
-        customImages: uploadButton.files
       }),
     }
   )
     .then((response) => response.text())
     .then((url) => (window.location.href = url))
     .catch((error) => console.error(error));
-});
-
+  });
 function findSetName(Searched_Set_Name) {
   Searched_Set_Name = Searched_Set_Name.split(" ").join("").toLocaleLowerCase();
   console.log("Searced: " + Searched_Set_Name);
@@ -535,8 +559,9 @@ uploadButton.addEventListener("change", (e) => {
   var text = eg.options[eg.selectedIndex].value;
   let GroupIndx = getGroupIndex(text);
   var file = e.target.files[0];
-  ObjName =
-    ObjectIndx + "_" + "CustomCard_" + e.target.files[0].lastModified;
+  CustomCards.push(file);
+  ObjName =ObjectIndx + "_" +"CustomCard_" + e.target.files[0].name+"_"+e.target.files[0].lastModified;
+  console.log(ObjName);
   var imageSrc;
   imageSrc = URL.createObjectURL(e.target.files[0]);
   console.log(imageSrc);
@@ -563,6 +588,7 @@ uploadButton.addEventListener("change", (e) => {
     cardContainer.appendChild(CardwGroupDiv.mainGroupDiv); // add the new Card component to the card container
   }
   addCardJSON(GroupIndx, ObjName, 1);
+  updateCount();
   // console.log(Cards);
 });
 // uploadButton.addEventListener('click', uploadImage);

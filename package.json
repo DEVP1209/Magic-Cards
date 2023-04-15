@@ -1,0 +1,15 @@
+{
+  "name": "magic_cards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index_final1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary-core": "^2.13.0"
+  }
+}
