@@ -481,25 +481,8 @@ Custom.addEventListener("change", function (event) {
   reader.readAsDataURL(file);
 });
 
-ProceedBTN.addEventListener("click", () => {
-  console.log(Cards);
-  function uploadImage() {
-      var fileInput = document.getElementById('fileInput');
-      var file = fileInput.files[0];
-      var formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', ObjName);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://api.cloudinary.com/v1_1/drq0llwyb/image/upload');
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          // console.log(xhr.responseText);
-        } else {
-          console.error(xhr.responseText);
-        }
-      };
-      xhr.send(formData);
-    }
+ProceedBTN.addEventListener("click", (e) => {
+  
   fetch(
     "https://stripe-service-magic-forge.onrender.com/create-checkout-session",
     {
@@ -507,7 +490,9 @@ ProceedBTN.addEventListener("click", () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ cards: Cards }),
+      body: JSON.stringify({ cards: Cards ,
+        customImages: uploadButton.files
+      }),
     }
   )
     .then((response) => response.text())
@@ -544,6 +529,8 @@ function findSetName(Searched_Set_Name) {
 let ObjName;
 var uploadButton = document.getElementById("Upload_Button");
 uploadButton.addEventListener("change", (e) => {
+  clearAllBtn.classList.remove("inactive");
+  ProceedBTN.classList.remove("inactive");
   var eg = document.getElementById("groups");
   var text = eg.options[eg.selectedIndex].value;
   let GroupIndx = getGroupIndex(text);
