@@ -457,9 +457,24 @@ span.order-quantity,span.order-price {
   background-color:red;
 } */
 @media screen and (max-width: 1024px) {
-  
+  .or{
+    color: transparent;
+  }
   .GroupDiv{
     grid-template-columns: repeat(2,1fr);
+  }
+  .Card_textarea{
+    width: 80%;
+  }
+  .cell-1{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .cell-2{
+    border-left: 0;
   }
   .BackDiv{
     flex-direction: column;
@@ -470,7 +485,7 @@ span.order-quantity,span.order-price {
   }
   .step3-lft-cell2{
     flex: 0 0 100%;
-    max-width: 82%;
+    max-width: 60%;
   }
   .step3-mid{
     flex: 0 0 100%;
@@ -484,14 +499,18 @@ span.order-quantity,span.order-price {
   max-width: 100%;
 }
 .step3-rgt p {
-  font-size: 2.5vh;
+  font-size: 3vh;
   line-height: 4vh;
+}
+.Card_textarea_div{
+    flex-direction: column;
 }
 }
 @media screen and (max-width: 766px){
   .wrapper{
     max-width: 100%;
   }
+  
   .GroupDiv{
     grid-template-columns: repeat(1,1fr);
   }
