@@ -13,6 +13,7 @@ let TextArea = document.getElementById("Card_textarea");
 let ObjectIndx = 0;
 let cardsCount = 0;
 var CustomCards = [];
+var ErrorCards = "";
 var Cards = [
   {
     Group: "DefaultGroup",
@@ -138,6 +139,14 @@ clearAllBtn.addEventListener("click", () => {
   for (let i = 0; i < 10; i++) {
     Cards[i].cards = {};
   }
+  let Oneto9 = document.getElementById("1to9");
+  let Tento49 = document.getElementById("10to49");
+  let Fiftyto199 = document.getElementById("50to199");
+  let Two00 = document.getElementById("200to");
+    Oneto9.classList.remove("ToGolden");
+    Tento49.classList.remove("ToGolden");
+    Fiftyto199.classList.remove("ToGolden");
+    Two00.classList.remove("ToGolden");
 });
 
 searchBtn.addEventListener("click", () => {
@@ -165,7 +174,7 @@ searchBtn.addEventListener("click", () => {
         searchedCardName = value[i];
         searchedCardName = findSetName(searchedCardName.toLocaleLowerCase());
         if(searchedCardName == ""){
-          console.log(value[i]+ " Not Found")
+          ErrorCards += (value[i] + ",");
         } 
         CardName.push(searchedCardName);
          fetch(
@@ -176,17 +185,20 @@ searchBtn.addEventListener("click", () => {
             resolve({ res, CardName, i, qty });
           })
           .catch((err) => {
-            reject(err);
+            // reject(err);
           });
       });
     })
   )
     .then((responses) => {
+      if(ErrorCards != ""){
+        alert("The Following Cards are currently unavailable: "+ErrorCards.substring(0,ErrorCards.length-1))
+     }
       responses.forEach((response) => {
         let searchedCardName = response.CardName[response.i];
         const res = response.res;
         var qty = response.qty;
-        if (res.data.length > 0) {
+        if (res && res.data && res.data.length > 0) {
           let setNameList = [];
           let ImgList = [];
           for (let k = 0; k < res.data.length; k++) {
@@ -244,7 +256,7 @@ searchBtn.addEventListener("click", () => {
       });
     })
     .catch((err) => {
-      // console.error(err);
+      console.error(err);
     });
 });
 
