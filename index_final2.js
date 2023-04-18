@@ -147,7 +147,6 @@ searchBtn.addEventListener("click", () => {
   TextArea.value = "";
   var value = [];
   var CardName = [];
-  // console.log(Splitted_Cards);
   Promise.all(
     Splitted_Cards.map((card, i) => {
       return new Promise((resolve, reject) => {
@@ -163,13 +162,14 @@ searchBtn.addEventListener("click", () => {
         } else {
           value[i] = card;
         }
-        // console.log(value);
         searchedCardName = value[i];
         searchedCardName = findSetName(searchedCardName.toLocaleLowerCase());
+        if(searchedCardName == ""){
+          console.log(value[i]+ " Not Found")
+        } 
         CardName.push(searchedCardName);
-        // console.log(CardName);
-        fetch(
-          `https://api.scryfall.com/cards/search?q="${searchedCardName}"&unique:prints+include%3Aextras`
+         fetch(
+          `https://api.scryfall.com/cards/search?q=%21%22${searchedCardName}%22+include%3Aextras&unique=prints`
         )
           .then((res) => res.json())
           .then((res) => {
@@ -183,8 +183,8 @@ searchBtn.addEventListener("click", () => {
   )
     .then((responses) => {
       responses.forEach((response) => {
-        const res = response.res;
         let searchedCardName = response.CardName[response.i];
+        const res = response.res;
         var qty = response.qty;
         if (res.data.length > 0) {
           let setNameList = [];
@@ -244,7 +244,7 @@ searchBtn.addEventListener("click", () => {
       });
     })
     .catch((err) => {
-      console.error(err);
+      // console.error(err);
     });
 });
 
