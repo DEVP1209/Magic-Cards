@@ -10,6 +10,7 @@ const linkTag = searchWrapper.querySelector("a");
 const searchBtn = document.getElementById("search-btn");
 let ProceedBTN = document.getElementById("priceBTN");
 let TextArea = document.getElementById("Card_textarea");
+let BackDropdown = document.getElementById("BackDropdown");
 let ObjectIndx = 0;
 let cardsCount = 0;
 var CustomCards = [];
@@ -51,6 +52,15 @@ var counter = {
   Group8: 0,
   Group9: 0,
 };
+var BackCardImg = {
+  "Magic Forge Back" : "https://cdn.jsdelivr.net/gh/DEVP1209/Magic-Cards@main/MagicForge%20back.png"
+}
+for (const [key, value] of Object.entries(BackCardImg)) {
+  console.log(`${key}: ${value}`);
+  let opt = document.createElement("option");
+      opt.innerText = key;
+      BackDropdown.appendChild(opt);
+}
 
 // if user press any key and release
 inputBox.onkeyup = (e) => {
@@ -227,7 +237,6 @@ searchBtn.addEventListener("click", () => {
           let GroupIndx = getGroupIndex(text);
           let ObjName =
             ObjectIndx + "_" + searchedCardName + "_" + setNameList[0];
-          let BackDropdown = document.getElementById("BackDropdown");
           let BackCard = BackDropdown.options[BackDropdown.selectedIndex].text;
           Cards[10].Back = BackCard;
           addCardJSON(GroupIndx, ObjName, qty != null ? parseInt(qty) : 1);
@@ -419,6 +428,8 @@ class Card {
 }
 BackDropdown.addEventListener("change", () => {
   BackCard = BackDropdown.options[BackDropdown.selectedIndex].text;
+  let ImgSpan = document.getElementById("BackCardImgID");
+  ImgSpan.src = BackCardImg[BackCard];
   Cards[10].Back = BackCard;
 });
 let OrderQuantity = document.getElementById("OrderQuantity");
@@ -611,3 +622,4 @@ uploadButton.addEventListener("change", (e) => {
   updateCount();
   // console.log(Cards);
 });
+
