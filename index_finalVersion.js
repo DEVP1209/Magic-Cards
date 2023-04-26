@@ -16,18 +16,9 @@ let cardsCount = 0;
 var CustomCards = [];
 var ErrorCards = "";
 var Cards = [
-  {
-    Group: "DefaultGroup",
-    cards: {},
-  },
-  {
-    Group: "Group1",
-    cards: {},
-  },
-  {
-    Group: "Group2",
-    cards: {},
-  },
+  { Group: "DefaultGroup", cards: {},},
+  { Group: "Group1", cards: {},},
+  { Group: "Group2", cards: {},},
   { Group: "Group3", cards: {} },
   { Group: "Group4", cards: {} },
   { Group: "Group5", cards: {} },
@@ -35,9 +26,7 @@ var Cards = [
   { Group: "Group7", cards: {} },
   { Group: "Group8", cards: {} },
   { Group: "Group9", cards: {} },
-  {
-    Group: "BackCard",
-  },
+  { Group: "BackCard",},
 ];
 let webLink;
 var counter = {
