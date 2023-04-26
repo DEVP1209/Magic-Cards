@@ -149,8 +149,9 @@ clearAllBtn.addEventListener("click", () => {
 });
 
 searchBtn.addEventListener("click", () => {
-  clearAllBtn.classList.remove("inactive");
-  ProceedBTN.classList.remove("inactive");
+  // clearAllBtn.classList.remove("inactive");
+  // ProceedBTN.classList.remove("inactive");
+  ErrorCards = "";
   var Splitted_Cards = TextArea.value.split("\n");
   TextArea.value = "";
   var value = [];
@@ -252,6 +253,14 @@ searchBtn.addEventListener("click", () => {
           }
         }
       });
+      if(cardsCount == 0){
+        clearAllBtn.classList.add("inactive");
+        ProceedBTN.classList.add("inactive");
+      }
+      else{
+        clearAllBtn.classList.remove("inactive");
+        ProceedBTN.classList.remove("inactive");
+      }
     })
     .catch((err) => {
       console.error(err);
